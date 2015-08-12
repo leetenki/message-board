@@ -1,10 +1,10 @@
 class MessagesController < ApplicationController
+  before_action :set_message, :only => [:edit, :update, :destroy]
+
   def edit
-    @message = Message.find(params[:id])
   end
 
   def update
-    @message = Message.find(params[:id])
     if @message.update(message_params)
       redirect_to root_path, notice: 'メッセージ編集しました'
     else
@@ -13,7 +13,6 @@ class MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find(params[:id])
     @message.destroy
     redirect_to root_path, notice: 'メッセージを削除しました'
   end
@@ -36,9 +35,12 @@ class MessagesController < ApplicationController
   	end
   end
 
+  def set_message
+    @message = Message.find(params[:id])
+  end
 
   private
   def message_params
-  	params.require(:message).permit(:name, :body)
+  	params.require(:message).permit(:name, :body, :age)
   end
 end
