@@ -12,6 +12,11 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @message = Message.find(params[:id])
+    @message.destroy
+    redirect_to root_path, notice: 'メッセージを削除しました'
+  end
 
   #index
   def index
