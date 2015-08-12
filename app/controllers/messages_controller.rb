@@ -1,4 +1,18 @@
 class MessagesController < ApplicationController
+  def edit
+    @message = Message.find(params[:id])
+  end
+
+  def update
+    @message = Message.find(params[:id])
+    if @message.update(message_params)
+      redirect_to root_path, notice: 'メッセージ編集しました'
+    else
+      render 'edit'
+    end
+  end
+
+
   #index
   def index
   	@messages = Message.all
