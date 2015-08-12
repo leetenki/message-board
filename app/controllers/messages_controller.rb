@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  #index
   def index
   	@messages = Message.all
   	@message = Message.new
@@ -9,16 +10,16 @@ class MessagesController < ApplicationController
   	@message = Message.new(message_params)
   	if @message.save
 	  	redirect_to root_path , notice: "メッセージを保存しました"
-	else
-		@messages = Message.all
-		flash.now[:alert] = "メッセージ保存失敗"
-		render "index"
-	end
+  	else
+  		@messages = Message.all
+  		flash.now[:alert] = "メッセージ保存失敗"
+  		render "index"
+  	end
   end
+
 
   private
   def message_params
   	params.require(:message).permit(:name, :body)
   end
-
 end
